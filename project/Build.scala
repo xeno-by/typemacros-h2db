@@ -6,7 +6,7 @@ object BuildSettings {
     organization := "org.scalamacros",
     version := "1.0.0",
     scalacOptions ++= Seq(),
-    scalaVersion := "2.10.1-SNAPSHOT",
+    scalaVersion := "2.11.0-SNAPSHOT",
     scalaOrganization := "org.scala-lang.macro-paradise",
     resolvers += Resolver.sonatypeRepo("snapshots"),
     libraryDependencies += "com.h2database" % "h2" % "1.3.170"
