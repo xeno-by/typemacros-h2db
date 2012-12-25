@@ -1,0 +1,1 @@
+An example type provider, which uses type macros from Scala macro paradise

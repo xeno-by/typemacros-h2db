@@ -1,0 +1,37 @@
+import sbt._
+import Keys._
+
+object BuildSettings {
+  val buildSettings = Defaults.defaultSettings ++ Seq(
+    organization := "org.scalamacros",
+    version := "1.0.0",
+    scalacOptions ++= Seq(),
+    scalaVersion := "2.10.1-SNAPSHOT",
+    scalaOrganization := "org.scala-lang.macro-paradise",
+    resolvers += Resolver.sonatypeRepo("snapshots"),
+    libraryDependencies += "com.h2database" % "h2" % "1.3.170"
+  )
+}
+
+object MyBuild extends Build {
+  import BuildSettings._
+
+  lazy val root: Project = Project(
+    "root",
+    file("core"),
+    settings = buildSettings
+  ) aggregate(macros, core)
+
+  lazy val macros: Project = Project(
+    "macros",
+    file("macros"),
+    settings = buildSettings ++ Seq(
+      libraryDependencies <+= (scalaVersion)("org.scala-lang.macro-paradise" % "scala-reflect" % _))
+  )
+
+  lazy val core: Project = Project(
+    "core",
+    file("core"),
+    settings = buildSettings
+  ) dependsOn(macros)
+}
